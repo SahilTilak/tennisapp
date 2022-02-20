@@ -1,0 +1,10 @@
+---
+title: "Adjustments"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+elo_data <- read_csv("elo_data.csv")
+elo_data$full_date<-as.Date(with(elo_data,paste(year,month,day,sep="-")),"%Y-%m-%d")
+```
