@@ -5,6 +5,27 @@ output: html_document
 
 ```{r}
 library(tidyverse)
+```
+
+
+```{r}
 elo_data <- read_csv("elo_data.csv")
+```
+
+```{r}
+elo_data <- elo_data %>%
+  select(tourney_date, winner_name, loser_name, winner_age, loser_age, year, month, day, w_elo_after_game, l_elo_after_game, hard_w_elo_after_game, hard_l_elo_after_game, grass_l_elo_after_game, grass_w_elo_after_game, clay_w_elo_after_game, clay_l_elo_after_game, carpet_w_elo_after_game, carpet_l_elo_after_game)
+
+elo_data <- elo_data %>%
+  filter(year > 1990)
+```
+
+
+```{r}
+elo_data <- read_csv("elo_data.csv", col_types = cols(minutes = col_double(), w_ace = col_double(), w_df = col_double(), w_svpt = col_double(), w_1stIn = col_double(), w_1stWon = col_double(), w_2ndWon = col_double(), w_SvGms = col_double(), w_bpSaved = col_double(), w_bpFaced = col_double(), l_ace = col_double()))
+```
+
+```{r}
 elo_data$full_date<-as.Date(with(elo_data,paste(year,month,day,sep="-")),"%Y-%m-%d")
 ```
+

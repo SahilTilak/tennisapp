@@ -32,12 +32,12 @@ server <- function(input, output, session) {
   elo_data_filter <- reactive({
     data1 <- elo_data %>%
       filter(winner_name == input$playername) %>%
-      select(winner_name, full_date, w_elo_after_game, clay_w_elo_after_game, grass_w_elo_after_game, hard_w_elo_after_game, carpet_w_elo_after_game) %>%
-      rename(name = winner_name, elo_after_game = w_elo_after_game, clay_elo_after_game = clay_w_elo_after_game, grass_elo_after_game = grass_w_elo_after_game, hard_elo_after_game = hard_w_elo_after_game, carpet_elo_after_game = carpet_w_elo_after_game )
+      select(winner_name, winner_age, full_date, w_elo_after_game, clay_w_elo_after_game, grass_w_elo_after_game, hard_w_elo_after_game, carpet_w_elo_after_game) %>%
+      rename(name = winner_name, age = winner_age, elo_after_game = w_elo_after_game, clay_elo_after_game = clay_w_elo_after_game, grass_elo_after_game = grass_w_elo_after_game, hard_elo_after_game = hard_w_elo_after_game, carpet_elo_after_game = carpet_w_elo_after_game )
     data2 <- elo_data %>%
       filter(loser_name == input$playername) %>%
-      select(loser_name, full_date, l_elo_after_game, clay_l_elo_after_game, grass_l_elo_after_game, hard_l_elo_after_game, carpet_l_elo_after_game) %>%
-      rename(name = loser_name, elo_after_game = l_elo_after_game, clay_elo_after_game = clay_l_elo_after_game, grass_elo_after_game = grass_l_elo_after_game, hard_elo_after_game = hard_l_elo_after_game, carpet_elo_after_game = carpet_l_elo_after_game)
+      select(loser_name, loser_age, full_date, l_elo_after_game, clay_l_elo_after_game, grass_l_elo_after_game, hard_l_elo_after_game, carpet_l_elo_after_game) %>%
+      rename(name = loser_name, age = loser_age, elo_after_game = l_elo_after_game, clay_elo_after_game = clay_l_elo_after_game, grass_elo_after_game = grass_l_elo_after_game, hard_elo_after_game = hard_l_elo_after_game, carpet_elo_after_game = carpet_l_elo_after_game)
     data <- rbind(data1, data2)
     data
   })
@@ -50,7 +50,7 @@ server <- function(input, output, session) {
     validate(
       need(input$playername, "Enter name above")
     )
-    ggplot(data = elo_data_filter(), mapping = aes(x = full_date, y = elo_after_game)) +
+    ggplot(data = elo_data_filter(), mapping = aes(x = age, y = elo_after_game)) +
       geom_line()
   })
   # Show Selected Value in Console
